@@ -1,4 +1,9 @@
-const Sort = () => {
+import { useState } from 'react';
+
+const Sort = ({ sortValue, setSortValue }) => {
+  const [activeSort, setActiveSort] = useState(false);
+  const arr = ['популярности', 'цене', 'алфавиту'];
+
   return (
     <div className="sort">
       <div className="sort__label">
@@ -15,15 +20,25 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setActiveSort(!activeSort)}>{sortValue}</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {activeSort && (
+        <div className="sort__popup">
+          <ul>
+            {arr.map((el) => (
+              <li
+                className={sortValue === el ? 'active' : ''}
+                onClick={() => {
+                  setSortValue(el);
+                }}
+                key={el}
+              >
+                {el}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
