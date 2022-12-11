@@ -1,0 +1,18 @@
+import { Link } from 'react-router-dom';
+
+const Cart = () => {
+  return (
+    <div class="container container--cart">
+      <div class="cart cart--empty">
+        <h2>Корзина пустая</h2>
+        <p>Для того, чтобы заказать пиццу, перейди на главную страницу.</p>
+        <img src="/img/empty-cart.png" alt="Empty cart" />
+        <Link to="/" class="button button--black">
+          <span>Вернуться назад</span>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default Cart;

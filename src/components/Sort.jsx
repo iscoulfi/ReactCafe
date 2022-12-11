@@ -30,6 +30,7 @@ const Sort = ({ sortValue, setSortValue }) => {
                 className={sortValue === el ? 'active' : ''}
                 onClick={() => {
                   setSortValue(el);
+                  setActiveSort(false);
                 }}
                 key={el}
               >

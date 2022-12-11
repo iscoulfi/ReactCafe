@@ -1,40 +1,60 @@
+import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import axios from 'axios';
 import Header from './components/Header';
-import Card from './components/Card';
-import Categories from './components/Categories';
-import Sort from './components/Sort';
-import menu from './assets/menu';
+import Home from './components/pages/Home';
+import Cart from './components/pages/Cart';
+import NotFound from './components/pages/NotFound';
 import './scss/app.scss';
-import { useState } from 'react';
 
 function App() {
   const [categorySort, setCategorySort] = useState(0);
-  const [sortValue, setSortValue] = useState('популярности');
+  const [menu, setMenu] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get(
+          'https://6395815690ac47c6806c6eaa.mockapi.io/Menu'
+        );
+
+        let dataFiltered = data.filter(
+          (pizza) => pizza.category === categorySort || categorySort === 0
+        );
+
+        setMenu(dataFiltered);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error.message);
+      }
+    })();
+  }, [categorySort]);
 
   return (
-    <div className="App">
-      <div className="wrapper">
-        <Header />
-        <div className="content">
-          <div className="container">
-            <div className="content__top">
-              <Categories setCategorySort={setCategorySort} />
-              <Sort sortValue={sortValue} setSortValue={setSortValue} />
-            </div>
-            <h2 className="content__title">Все пиццы</h2>
-            <div className="content__items">
-              {menu
-                .filter(
-                  (pizza) =>
-                    pizza.category === categorySort || categorySort === 0
-                )
-                .map((pizza, ind) => (
-                  <Card {...pizza} key={ind} />
-                ))}
-            </div>
+    <BrowserRouter>
+      <div className="App">
+        <div className="wrapper">
+          <Header />
+          <div className="content">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Home
+                    menu={menu}
+                    isLoading={isLoading}
+                    setCategorySort={setCategorySort}
+                  />
+                }
+              />
+              <Route path="cart" element={<Cart />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </div>
         </div>
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 
