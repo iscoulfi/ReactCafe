@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { CSContext } from '../App';
 
-const Categories = ({ setCategorySort }) => {
+const Categories = () => {
+  const { setCategorySort } = useContext(CSContext);
+
   const [activeCategory, setActiveCategory] = useState(0);
   const categories = [
     'Все',

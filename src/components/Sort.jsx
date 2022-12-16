@@ -1,8 +1,16 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { CSContext } from '../App';
 
-const Sort = ({ sortValue, setSortValue }) => {
+const Sort = () => {
+  const { sortValue, setSortValue } = useContext(CSContext);
+
   const [activeSort, setActiveSort] = useState(false);
-  const arr = ['популярности', 'цене', 'алфавиту'];
+  const arr = [
+    'популярности (возраст)',
+    'популярности (убыв)',
+    'цене (возраст)',
+    'цене (убыв)',
+  ];
 
   return (
     <div className="sort">
