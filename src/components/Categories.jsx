@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { CSContext } from '../App';
 
 const Categories = () => {
-  const { setCategorySort } = useContext(CSContext);
+  const { onClickCategory } = useContext(CSContext);
 
   const [activeCategory, setActiveCategory] = useState(0);
   const categories = [
@@ -22,7 +22,7 @@ const Categories = () => {
             className={activeCategory === ind ? 'active' : ''}
             onClick={() => {
               setActiveCategory(ind);
-              setCategorySort(ind);
+              onClickCategory(ind);
             }}
             key={pizza}
           >

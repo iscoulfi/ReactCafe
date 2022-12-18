@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { CSContext } from '../App';
 
 const Sort = () => {
-  const { sortValue, setSortValue } = useContext(CSContext);
+  const { sort, onClickSort } = useContext(CSContext);
 
   const [activeSort, setActiveSort] = useState(false);
   const arr = [
@@ -28,16 +28,16 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setActiveSort(!activeSort)}>{sortValue}</span>
+        <span onClick={() => setActiveSort(!activeSort)}>{sort}</span>
       </div>
       {activeSort && (
         <div className="sort__popup">
           <ul>
             {arr.map((el) => (
               <li
-                className={sortValue === el ? 'active' : ''}
+                className={sort === el ? 'active' : ''}
                 onClick={() => {
-                  setSortValue(el);
+                  onClickSort(el);
                   setActiveSort(false);
                 }}
                 key={el}
