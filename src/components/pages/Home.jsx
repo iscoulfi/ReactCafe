@@ -4,7 +4,7 @@ import Sort from '../Sort';
 import Skeleton from '../Card/Skeleton';
 import Pagination from '../Pagination';
 
-const Home = ({ menu, isLoading, setCurrentPage }) => {
+const Home = ({ menu, isLoading }) => {
   return (
     <div className="container">
       <div className="content__top">
@@ -17,7 +17,7 @@ const Home = ({ menu, isLoading, setCurrentPage }) => {
           ? [...new Array(10)].map((_, ind) => <Skeleton key={ind} />)
           : menu.map((pizza, ind) => <Card {...pizza} key={ind} />)}
       </div>
-      <Pagination setCurrentPage={setCurrentPage} />
+      <Pagination />
     </div>
   );
 };

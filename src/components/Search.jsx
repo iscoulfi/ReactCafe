@@ -1,21 +1,48 @@
 import { BiSearchAlt2, BiX } from 'react-icons/bi';
-import { CSContext } from '../App';
-import { useContext } from 'react';
+import { setValue } from '../redux/slices/filterSlice';
+import { useDispatch } from 'react-redux';
 import styles from './Search.module.scss';
+import { useCallback, useRef, useState } from 'react';
+import debounce from 'lodash.debounce';
 
 const Search = () => {
-  const { value, setValue } = useContext(CSContext);
+  const [searchValue, setSearchValue] = useState('');
+  const inputRef = useRef();
+  const dispatch = useDispatch();
+
+  const updateSearchValue = useCallback(
+    debounce((str) => {
+      dispatch(setValue(str));
+    }, 500),
+    []
+  );
+
+  const onChangeInput = (event) => {
+    setSearchValue(event.target.value);
+    updateSearchValue(event.target.value);
+  };
+
   return (
     <div className={styles.root}>
       <BiSearchAlt2 className={styles.icon} />
       <input
+        ref={inputRef}
         type="text"
         placeholder="Поиск пиццы..."
         className={styles.input}
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
+        value={searchValue}
+        onChange={onChangeInput}
       />
-      {value && <BiX className={styles.ico} onClick={() => setValue('')} />}
+      {searchValue && (
+        <BiX
+          className={styles.ico}
+          onClick={() => {
+            dispatch(setValue(''));
+            setSearchValue('');
+            inputRef.current.focus();
+          }}
+        />
+      )}
     </div>
   );
 };

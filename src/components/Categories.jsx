@@ -1,9 +1,8 @@
-import { useContext, useState } from 'react';
-import { CSContext } from '../App';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setCategoryId } from '../redux/slices/filterSlice';
 
 const Categories = () => {
-  const { onClickCategory } = useContext(CSContext);
-
   const [activeCategory, setActiveCategory] = useState(0);
   const categories = [
     'Все',
@@ -13,6 +12,12 @@ const Categories = () => {
     'Острые',
     'Закрытые',
   ];
+
+  const dispatch = useDispatch();
+
+  const onClickCategory = (id) => {
+    dispatch(setCategoryId(id));
+  };
 
   return (
     <div className="categories">

@@ -1,9 +1,8 @@
-import { useContext, useState } from 'react';
-import { CSContext } from '../App';
+import { useState } from 'react';
+import { setSort } from '../redux/slices/filterSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Sort = () => {
-  const { sort, onClickSort } = useContext(CSContext);
-
   const [activeSort, setActiveSort] = useState(false);
   const arr = [
     'популярности (возраст)',
@@ -11,6 +10,13 @@ const Sort = () => {
     'цене (возраст)',
     'цене (убыв)',
   ];
+
+  const sort = useSelector((state) => state.filter.sort);
+  const dispatch = useDispatch();
+
+  const onClickSort = (el) => {
+    dispatch(setSort(el));
+  };
 
   return (
     <div className="sort">
