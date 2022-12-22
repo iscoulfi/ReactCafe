@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setItems } from './redux/slices/pizzaSlice';
 
 import axios from 'axios';
 import Header from './components/Header';
@@ -10,13 +11,14 @@ import NotFound from './components/pages/NotFound';
 import './scss/app.scss';
 
 function App() {
-  const [menu, setMenu] = useState([]);
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sort = useSelector((state) => state.filter.sort);
   const value = useSelector((state) => state.filter.value);
   const currentPage = useSelector((state) => state.filter.currentPage);
+  const items = useSelector((state) => state.pizza.items);
 
   useEffect(() => {
     (async () => {
@@ -31,7 +33,7 @@ function App() {
           }&order=${/возраст/.test(sort) ? 'asc' : 'desc'}`
         );
 
-        setMenu(data);
+        dispatch(setItems(data));
         setIsLoading(false);
       } catch (error) {
         console.log(error.message);
@@ -48,7 +50,7 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={<Home menu={menu} isLoading={isLoading} />}
+                element={<Home menu={items} isLoading={isLoading} />}
               />
               <Route path="cart" element={<Cart />} />
               <Route path="*" element={<NotFound />} />
