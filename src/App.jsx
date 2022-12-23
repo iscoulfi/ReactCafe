@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setItems } from './redux/slices/pizzaSlice';
+import { fetchPizzas } from './redux/slices/pizzaSlice';
 
-import axios from 'axios';
 import Header from './components/Header';
 import Home from './components/pages/Home';
 import Cart from './components/pages/Cart';
@@ -12,32 +11,19 @@ import './scss/app.scss';
 
 function App() {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sort = useSelector((state) => state.filter.sort);
   const value = useSelector((state) => state.filter.value);
   const currentPage = useSelector((state) => state.filter.currentPage);
-  const items = useSelector((state) => state.pizza.items);
+  const { items } = useSelector((state) => state.pizza);
 
   useEffect(() => {
     (async () => {
-      try {
-        const search = value ? `search=${value}` : '';
-
-        const { data } = await axios.get(
-          `https://6395815690ac47c6806c6eaa.mockapi.io/Menu?page=${currentPage}&limit=8&${
-            categoryId === 0 ? '' : `category=${categoryId}`
-          }&${value === '' ? '' : search}&sortBy=${
-            /популярности/.test(sort) ? 'rating' : 'price'
-          }&order=${/возраст/.test(sort) ? 'asc' : 'desc'}`
-        );
-
-        dispatch(setItems(data));
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error.message);
-      }
+      //перенесли в redux
+      const search = value ? `search=${value}` : '';
+      dispatch(fetchPizzas({ search, currentPage, categoryId, sort, value }));
     })();
   }, [categoryId, sort, value, currentPage]);
 
@@ -48,10 +34,7 @@ function App() {
           <Header />
           <div className="content">
             <Routes>
-              <Route
-                path="/"
-                element={<Home menu={items} isLoading={isLoading} />}
-              />
+              <Route path="/" element={<Home menu={items} />} />
               <Route path="cart" element={<Cart />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
