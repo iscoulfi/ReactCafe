@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPizzas } from './redux/slices/pizzaSlice';
@@ -11,19 +11,28 @@ import './scss/app.scss';
 
 function App() {
   const dispatch = useDispatch();
-  // const [isLoading, setIsLoading] = useState(true);
 
-  const categoryId = useSelector((state) => state.filter.categoryId);
-  const sort = useSelector((state) => state.filter.sort);
-  const value = useSelector((state) => state.filter.value);
-  const currentPage = useSelector((state) => state.filter.currentPage);
-  const { items } = useSelector((state) => state.pizza);
+  const categoryId: number = useSelector(
+    (state: any) => state.filter.categoryId
+  );
+  const sort: string = useSelector((state: any) => state.filter.sort);
+  const value: string = useSelector((state: any) => state.filter.value);
+  const currentPage: number = useSelector(
+    (state: any) => state.filter.currentPage
+  );
+  const { items }: { items: string[] } = useSelector(
+    (state: any) => state.pizza
+  );
 
   useEffect(() => {
     (async () => {
       //перенесли в redux
       const search = value ? `search=${value}` : '';
-      dispatch(fetchPizzas({ search, currentPage, categoryId, sort, value }));
+
+      dispatch(
+        //@ts-ignore
+        fetchPizzas({ search, currentPage, categoryId, sort, value })
+      );
     })();
   }, [categoryId, sort, value, currentPage]);
 

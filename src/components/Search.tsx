@@ -2,12 +2,12 @@ import { BiSearchAlt2, BiX } from 'react-icons/bi';
 import { setValue } from '../redux/slices/filterSlice';
 import { useDispatch } from 'react-redux';
 import styles from './Search.module.scss';
-import { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import debounce from 'lodash.debounce';
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState('');
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
 
   const updateSearchValue = useCallback(
@@ -17,7 +17,7 @@ const Search = () => {
     []
   );
 
-  const onChangeInput = (event) => {
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
     updateSearchValue(event.target.value);
   };
@@ -39,7 +39,7 @@ const Search = () => {
           onClick={() => {
             dispatch(setValue(''));
             setSearchValue('');
-            inputRef.current.focus();
+            inputRef.current?.focus();
           }}
         />
       )}

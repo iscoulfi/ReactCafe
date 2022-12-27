@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCategoryId } from '../redux/slices/filterSlice';
 
-const Categories = () => {
+const Categories: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState(0);
   const categories = [
     'Все',
@@ -15,7 +15,7 @@ const Categories = () => {
 
   const dispatch = useDispatch();
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 

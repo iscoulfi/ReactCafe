@@ -5,8 +5,12 @@ import Skeleton from '../Card/Skeleton';
 import Pagination from '../Pagination';
 import { useSelector } from 'react-redux';
 
-const Home = ({ menu }) => {
-  const { status } = useSelector((state) => state.pizza);
+type MenuProps = {
+  menu: string[];
+};
+
+const Home: React.FC<MenuProps> = ({ menu }) => {
+  const { status } = useSelector((state: any) => state.pizza);
   return (
     <div className="container">
       <div className="content__top">
@@ -17,7 +21,7 @@ const Home = ({ menu }) => {
       <div className="content__items">
         {status === 'loading'
           ? [...new Array(10)].map((_, ind) => <Skeleton key={ind} />)
-          : menu.map((pizza, ind) => <Card {...pizza} key={ind} />)}
+          : menu.map((pizza: any, ind) => <Card {...pizza} key={ind} />)}
       </div>
       <Pagination />
     </div>

@@ -2,11 +2,27 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../redux/slices/cartSlice';
 
-const Card = ({ id, imageUrl, name, types, sizes, price }) => {
+type CardProps = {
+  id: string;
+  imageUrl: string;
+  name: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+};
+
+const Card: React.FC<CardProps> = ({
+  id,
+  imageUrl,
+  name,
+  types,
+  sizes,
+  price,
+}) => {
   const typeName = ['тонкое', 'традиционное'];
   const dispatch = useDispatch();
-  const cartItem = useSelector((state) =>
-    state.cart.items.find((obj) => obj.id === id)
+  const cartItem = useSelector((state: any) =>
+    state.cart.items.find((obj: any) => obj.id === id)
   );
   const [activeSize, setActiveSize] = useState(0);
   const [activeType, setActiveType] = useState(0);

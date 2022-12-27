@@ -4,27 +4,28 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 
-const Sort = () => {
+const Sort: React.FC = () => {
   const [activeSort, setActiveSort] = useState(false);
-  const arr = [
+  const arr: string[] = [
     'популярности (возраст)',
     'популярности (убыв)',
     'цене (возраст)',
     'цене (убыв)',
   ];
 
-  const sort = useSelector((state) => state.filter.sort);
+  const sort = useSelector((state: any) => state.filter.sort);
   const dispatch = useDispatch();
 
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const onClickSort = (el) => {
+  const onClickSort = (el: string) => {
     dispatch(setSort(el));
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!event.path.includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as MouseEvent & { path: Node[] };
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setActiveSort(false);
       }
     };
