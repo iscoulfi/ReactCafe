@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { fetchPizzas } from './redux/slices/pizzaSlice';
+import { useAppDispatch } from './redux/store';
 
 import Header from './components/Header';
 import Home from './components/pages/Home';
@@ -10,7 +11,7 @@ import NotFound from './components/pages/NotFound';
 import './scss/app.scss';
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const categoryId: number = useSelector(
     (state: any) => state.filter.categoryId
@@ -29,10 +30,7 @@ function App() {
       //перенесли в redux
       const search = value ? `search=${value}` : '';
 
-      dispatch(
-        //@ts-ignore
-        fetchPizzas({ search, currentPage, categoryId, sort, value })
-      );
+      dispatch(fetchPizzas({ search, currentPage, categoryId, sort, value }));
     })();
   }, [categoryId, sort, value, currentPage]);
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../../redux/slices/cartSlice';
+import { addItem, CartItem } from '../../redux/slices/cartSlice';
 
 type CardProps = {
   id: string;
@@ -28,13 +28,14 @@ const Card: React.FC<CardProps> = ({
   const [activeType, setActiveType] = useState(0);
   const addedCount = cartItem ? cartItem.count : 0;
   const onClickAdd = () => {
-    const item = {
+    const item: CartItem = {
       id,
       name,
       price,
       imageUrl,
       type: typeName[activeType],
       size: sizes[activeSize],
+      count: 0,
     };
     dispatch(addItem(item));
   };
