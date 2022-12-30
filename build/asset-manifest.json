@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ReactCafe/static/css/main.84629052.css",
+    "main.js": "/ReactCafe/static/js/main.5ca0961d.js",
+    "index.html": "/ReactCafe/index.html",
+    "main.84629052.css.map": "/ReactCafe/static/css/main.84629052.css.map",
+    "main.5ca0961d.js.map": "/ReactCafe/static/js/main.5ca0961d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.84629052.css",
+    "static/js/main.5ca0961d.js"
+  ]
+}
