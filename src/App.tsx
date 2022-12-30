@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { fetchPizzas } from './redux/slices/pizzaSlice';
 import { useAppDispatch } from './redux/store';
@@ -35,7 +35,7 @@ function App() {
   }, [categoryId, sort, value, currentPage]);
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <div className="App">
         <div className="wrapper">
           <Header />
@@ -48,7 +48,7 @@ function App() {
           </div>
         </div>
       </div>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
