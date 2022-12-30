@@ -41,8 +41,8 @@ function App() {
           <Header />
           <div className="content">
             <Routes>
-              <Route path="/" element={<Home menu={items} />} />
-              <Route path="cart" element={<Cart />} />
+              <Route path="/ReactCafe" element={<Home menu={items} />} />
+              <Route path="/ReactCafe/cart" element={<Cart />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
