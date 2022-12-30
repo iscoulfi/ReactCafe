@@ -81,6 +81,14 @@ body {
         }
       }
 
+      .categories::-webkit-scrollbar {
+        height: 7px;
+      }
+      .categories::-webkit-scrollbar-thumb {
+        background-color: #ffa929;
+        border-radius: 10px;
+      }
+
       .sort {
         padding-left: 20px;
         b {
