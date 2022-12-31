@@ -145,7 +145,7 @@ const Cart: React.FC = () => {
             <h2>Корзина пустая</h2>
 
             <img src="img/empty-cart.png" alt="Empty cart" />
-            <Link to="/" className="button button--black">
+            <Link to="/ReactCafe" className="button button--black">
               <span>Вернуться назад</span>
             </Link>
           </div>
